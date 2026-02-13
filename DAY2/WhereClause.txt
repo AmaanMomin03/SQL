@@ -1,0 +1,127 @@
+DAY 02 :- QUERIES  FOR WHERE CLAUSE (PRACTICE AND CLEAR THE CONCEPT).
+
+1.WAQTD NAME AND SAL GIVEN TO AN EMP IF EMP EARNS A COMMISION OF RUPEES 1400.
+2.WAQTD EMPNO OF EMP HIRED BEFORE THE YEAR 87
+3.WAQTD DETAILS OF THE EMP HAVING COMMISION MORE THAN SALARY.
+4.WAQTD DETAILS OF EMP WORKING AS ANALYST.
+5.WAQTD DETAILS OF EMPS EARNING MORE THAN 2000.
+6.WAQTD NAMES OF THE EMP HIRED AFTER 1982
+7.WAQTD NAME AND HIREDATE OF THE EMP HIRED BEFORE 01-MAY-81.
+8.WAQTD DETAILS OF EMP HIRED AFTER 1999
+9.WAQTD DETAILS OF THE EMP HIRED AFTER REPUBLIC DAY 2023.
+10.WAQTD NAMES OF THE EMP HIRED ON VALENTINE'S DAY.
+
+ANSWER:-
+
+01.
+SQL> SELECT ENAME, SAL
+  2  FROM EMP
+  3  WHERE COMM = 1400;
+
+ENAME             SAL
+---------- ----------
+MARTIN           1250
+
+02.
+SQL> SELECT EMPNO
+  2  FROM EMP
+  3  WHERE HIREDATE < '31-JAN-87';
+
+     EMPNO
+----------
+      7369
+      7499
+      7521
+      7566
+      7654
+      7698
+      7782
+      7839
+      7844
+      7900
+      7902
+
+     EMPNO
+----------
+      7934
+
+12 rows selected.
+
+03.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE COMM > SAL;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+
+04.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB = 'ANALYST';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+
+
+05.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SAL > 2000;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+
+6 rows selected.
+
+06.
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE HIREDATE  > '31-DEC-1982';
+
+ENAME
+----------
+SCOTT
+ADAMS
+
+07.
+SQL> SELECT ENAME, HIREDATE
+  2  FROM EMP
+  3  WHERE HIREDATE < '01-MAY-81';
+
+ENAME      HIREDATE
+---------- ---------
+SMITH      17-DEC-80
+ALLEN      20-FEB-81
+WARD       22-FEB-81
+JONES      02-APR-81
+
+08.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE HIREDATE > '31-DEC-1999';
+
+no rows selected
+
+09.
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE HIREDATE > '26-JAN-2023';
+
+no rows selected
+
+10.
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE HIREDATE = '14-FEB-2025';
+
+no rows selected
