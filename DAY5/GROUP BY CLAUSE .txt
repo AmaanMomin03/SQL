@@ -1,0 +1,155 @@
+GROUP BY CLAUSE :- 
+-> GROUP BY CLAUSE IS USED TO CREATE THE GROUPS.
+->GROUP BY CLAUSE EXECUTES ROW BY ROW.
+->WE CAN USE GBC WITHOUT USING WHERE CLAUSE.
+->IF WHERE CLAUSE IS USED, HTAT MUST BE USED BEFORE GBC.
+->AFTER THE EXECUTION OG GBC WE GET GROUP.
+->ANY CLAUSE THAT EXECUTES AFTER GROUP BY CLAUSE, THAT MUST EXECUTE GBC.
+->THE COL_NAME OR EXPRESSION USED BEFORE GROUPING CAN BE USED SELECT CLAUSE
+
+SYNTAX:- 
+SELECT GROUP BY EXPRESSION/GROUP FUNCTION
+FROM TB_NAME
+WHERE <ROW-FILTER-CONDITION> (IF USED)
+GROUP BY CIL_NAME/EXPRESSION
+
+NOTE:- ORDER OF EXECUTION.
+1->FROM
+2->WHERE (IF USED)   [ROW-BY-ROW]
+3->GROUP BY CLAUSE    [ROW-BY-ROW]
+4->SELECT CLAUSE     [GRP-BY-GRP]
+
+QUERIES:-
+01.WAQTD NO. OF EMP WORKING IN EACH DEPT.
+02.WAQTD NO. OF ANALYST WORKING IN EACH DEPTNO.
+03.WQATD MAX SAL GISVEN TO EACH JOB.
+04.WAQTD NO. OF EMP WORKING IN EACH JOB IF THE EMP HAVE CHR 'A' IN THEIR NAMES
+05.WAQTD  AVERAGE SAL NEEDED TO PAY ALL THE EMP IN EACH DEP EXCLUDING THE EMP OF DEPNO 20
+06.WAQTD NO. OF EMP WORKING IN EACH DEP EXCEPT MANAGER.
+07.WAQTD NUMBER OF EMP WITH THEIR MAX SAL IN EACH JOB.
+08.WAQTD NO. OF TIMES THE SAL HAVE BEEN REPEATED IN EMP TABLE.
+
+ANSWER:-
+01.
+SQL> SELECT COUNT(*), DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO
+---------- ----------
+         6         30
+         5         20
+         3         10
+02.
+SQL> SELECT  COUNT(*), DEPTNO
+  2  FROM EMP
+  3  WHERE JOB = 'ANALYST'
+  4  GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO
+---------- ----------
+         2         20
+
+03.
+SQL> SELECT MAX(SAL), JOB
+  2  FROM EMP
+  3  GROUP BY JOB;
+
+  MAX(SAL) JOB
+---------- ---------
+      1300 CLERK
+      1600 SALESMAN
+      5000 PRESIDENT
+      2975 MANAGER
+      3000 ANALYST
+
+04.
+SQL> SELECT COUNT(*), JOB
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%A%'
+  4  GROUP BY JOB;
+
+  COUNT(*) JOB
+---------- ---------
+         3 SALESMAN
+         2 CLERK
+         2 MANAGER
+
+05.
+SQL> SELECT AVG(SAL), DEPTNO
+  2  FROM EMP
+  3  WHERE DEPTNO != (20)
+  4  GROUP BY DEPTNO;
+
+  AVG(SAL)     DEPTNO
+---------- ----------
+1566.66667         30
+2916.66667         10
+
+06.
+SQL> SELECT COUNT(*), DEPTNO
+  2  FROM EMP
+  3  WHERE JOB NOT IN ('MANAGER')
+  4  GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO
+---------- ----------
+         5         30
+         4         20
+         2         10
+
+07.
+SQL> SELECT COUNT(*), MAX(SAL), JOB
+  2  FROM EMP
+  3  GROUP BY JOB;
+
+  COUNT(*)   MAX(SAL) JOB
+---------- ---------- ---------
+         4       1300 CLERK
+         4       1600 SALESMAN
+         1       5000 PRESIDENT
+         3       2975 MANAGER
+         2       3000 ANALYST
+
+08.
+SQL> SELECT COUNT(SAL), SAL 
+  2  FROM EMP
+  3  GROUP BY SAL;
+
+COUNT(SAL)        SAL
+---------- ----------
+         1       2450
+         1       5000
+         1       1300
+         2       1250
+         1       2850
+         1       2975
+         1       1100
+         2       3000
+         1        800
+         1       1600
+         1       1500
+         1        950
+
+12 rows selected.
+
+SQL> SELECT COUNT(*), SAL
+  2   FROM EMP
+  3   GROUP BY SAL;
+
+  COUNT(*)        SAL
+---------- ----------
+         1       2450
+         1       5000
+         1       1300
+         2       1250
+         1       2850
+         1       2975
+         1       1100
+         2       3000
+         1        800
+         1       1600
+         1       1500
+         1        950
+
+12 rows selected.
